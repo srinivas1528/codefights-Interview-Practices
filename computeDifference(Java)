@@ -1,0 +1,82 @@
+/*
+Question: Given two lists of elements A and B (can be integers), compute the diff between them. Note that each of the lists can contain duplicates. 
+
+Examples:
+  List 1 --[2,5,8]
+  List 2- [5]
+  Output -- [2,8] → difference(List 1, List 2)
+
+
+Method1 : Go through the first element in the first list and and search for the same element in the entire second list. Add the elemenst into the results list, if the elements in the first list are not present in the entire second list.
+
+
+Time Complexity: O(m*n)
+
+Mthod2: Sort both the list and take the two pointers i and j; and add the elemenst into the results list, if the elements in the first list are not present in the entire second list.
+
+Time Complexity: O(nlogn) +O(n+m) --> O(nlogn); (if n>m)
+
+Method 2 Solution is provided as it has better time complexity.
+
+*/
+
+=========Code(Java) Method 2:================
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Test {
+
+	public static void main(String[] args) {
+		ArrayList<Integer> testOne = new ArrayList<Integer>();
+		testOne.add(1);
+		testOne.add(2);
+		testOne.add(2);
+		testOne.add(2);
+   	testOne.add(1002);
+
+		ArrayList<Integer> testTwo = new ArrayList<Integer>();
+		testTwo.add(2);
+		testTwo.add(1);
+		testTwo.add(3);
+		testTwo.add(4);
+		testTwo.add(5);	
+
+		ArrayList<Integer> sol = computeDifference(testOne, testTwo);
+		System.out.println(sol);
+	}
+
+	public static ArrayList<Integer> computeDifference(ArrayList<Integer> listOne, ArrayList<Integer> listTwo) {
+
+		int i = 0;
+		int j = 0;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		int n = listOne.size(); 
+		int m = listTwo.size(); 
+		Collections.sort(listOne);
+		Collections.sort(listTwo);
+
+		while (i < n && j < m) {
+			int numOne = listOne.get(i); 
+			int numTwo = listTwo.get(j); 
+
+			if (numOne == numTwo) {
+				i++;
+				j++;
+			} else if (numOne < numTwo) {
+				result.add(numOne);
+				i++;
+			}else if (numOne > numTwo) {
+				j++;
+			}		
+		}
+
+		if (j == m) {
+			while (i < n) {
+				int value = listOne.get(i);
+				result.add(value);
+				i++;
+			}
+		}
+		return result;
+	}
+}
