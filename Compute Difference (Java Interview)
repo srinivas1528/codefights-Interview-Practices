@@ -32,7 +32,7 @@ public class Test {
 		testOne.add(2);
 		testOne.add(2);
 		testOne.add(2);
-   	testOne.add(1002);
+   		testOne.add(1002);
 
 		ArrayList<Integer> testTwo = new ArrayList<Integer>();
 		testTwo.add(2);
